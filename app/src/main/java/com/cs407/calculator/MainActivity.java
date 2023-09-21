@@ -16,22 +16,33 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("solution", String.valueOf(sol));
         startActivity(intent);
     }
-    public void addFunction(View view){
+    public void operation(View view){
+        int buttonId = view.getId();
+
         EditText firstNumber = (EditText) findViewById(R.id.firstNum);
         EditText secondNumber = (EditText) findViewById(R.id.secondNum);
 
         try {
             int num1 = Integer.parseInt(firstNumber.getText().toString());
             int num2 = Integer.parseInt(secondNumber.getText().toString());
-            System.out.println(num1);
-            System.out.println(num2);
 
-            goToActivity(num1 + num2);
+            if (buttonId==R.id.button1) {
+                goToActivity(num1 + num2);
+            } else if (buttonId==R.id.button2) {
+                goToActivity(num1 - num2);
+            } else if (buttonId==R.id.button3) {
+                goToActivity(num1 * num2);
+            } else if (buttonId==R.id.button4) {
+                if (num2 == 0) {
+                    Toast.makeText(MainActivity.this, "Cannot divide by 0.", Toast.LENGTH_LONG).show();
+                } else {
+                    goToActivity(num1 / num2);
+                }
+            }
 
         } catch (NumberFormatException e) {
             Toast.makeText(MainActivity.this, "Please enter a valid number.", Toast.LENGTH_LONG).show();
             Log.i("ERROR", "Not a number");
-
         }
     }
 
